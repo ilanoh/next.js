@@ -111,7 +111,7 @@ pub trait BackingStorageSealed: 'static + Send + Sync {
         &self,
         task_id: TaskId,
         category: SpecificTaskDataCategory,
-        storage: &mut crate::backend::task_storage_box::TaskStorageBox,
+        storage: &mut crate::backend::task_storage::TaskStorage,
     ) -> Result<()>;
 
     /// Batch lookup and decode data for multiple tasks directly into TypedStorage instances.
@@ -120,7 +120,7 @@ pub trait BackingStorageSealed: 'static + Send + Sync {
         &self,
         task_ids: &[TaskId],
         category: SpecificTaskDataCategory,
-    ) -> Result<Vec<crate::backend::task_storage_box::TaskStorageBox>>;
+    ) -> Result<Vec<crate::backend::task_storage::TaskStorage>>;
 
     fn compact(&self) -> Result<bool> {
         Ok(false)
@@ -183,7 +183,7 @@ where
         &self,
         task_id: TaskId,
         category: SpecificTaskDataCategory,
-        storage: &mut crate::backend::task_storage_box::TaskStorageBox,
+        storage: &mut crate::backend::task_storage::TaskStorage,
     ) -> Result<()> {
         either::for_both!(self, this => this.lookup_data(task_id, category, storage))
     }
@@ -192,7 +192,7 @@ where
         &self,
         task_ids: &[TaskId],
         category: SpecificTaskDataCategory,
-    ) -> Result<Vec<crate::backend::task_storage_box::TaskStorageBox>> {
+    ) -> Result<Vec<crate::backend::task_storage::TaskStorage>> {
         either::for_both!(self, this => this.batch_lookup_data(task_ids, category))
     }
 
