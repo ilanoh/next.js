@@ -9,7 +9,7 @@ use turbo_tasks::{
 };
 use turbo_tasks_hash::Xxh3Hash64Hasher;
 
-use crate::backend::{AnyOperation, SpecificTaskDataCategory, storage_schema::TaskStorage};
+use crate::backend::{AnyOperation, SpecificTaskDataCategory};
 
 pub type TaskTypeHash = [u8; 8];
 
@@ -111,7 +111,7 @@ pub trait BackingStorageSealed: 'static + Send + Sync {
         &self,
         task_id: TaskId,
         category: SpecificTaskDataCategory,
-        storage: &mut TaskStorage,
+        storage: &mut crate::backend::task_storage_box::TaskStorageBox,
     ) -> Result<()>;
 
     /// Batch lookup and decode data for multiple tasks directly into TypedStorage instances.
@@ -120,7 +120,7 @@ pub trait BackingStorageSealed: 'static + Send + Sync {
         &self,
         task_ids: &[TaskId],
         category: SpecificTaskDataCategory,
-    ) -> Result<Vec<TaskStorage>>;
+    ) -> Result<Vec<crate::backend::task_storage_box::TaskStorageBox>>;
 
     fn compact(&self) -> Result<bool> {
         Ok(false)
@@ -183,7 +183,7 @@ where
         &self,
         task_id: TaskId,
         category: SpecificTaskDataCategory,
-        storage: &mut TaskStorage,
+        storage: &mut crate::backend::task_storage_box::TaskStorageBox,
     ) -> Result<()> {
         either::for_both!(self, this => this.lookup_data(task_id, category, storage))
     }
@@ -192,7 +192,7 @@ where
         &self,
         task_ids: &[TaskId],
         category: SpecificTaskDataCategory,
-    ) -> Result<Vec<TaskStorage>> {
+    ) -> Result<Vec<crate::backend::task_storage_box::TaskStorageBox>> {
         either::for_both!(self, this => this.batch_lookup_data(task_ids, category))
     }
 
