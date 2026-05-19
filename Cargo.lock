@@ -9893,6 +9893,7 @@ dependencies = [
  "turbo-persistence",
  "turbo-rcstr",
  "turbo-tasks",
+ "turbo-tasks-backend",
  "turbo-tasks-hash",
  "turbo-tasks-malloc",
  "turbo-tasks-testing",
