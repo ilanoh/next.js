@@ -1253,5 +1253,8 @@
   "1252": "\\`experimental.cssChunking: \"graph\"\\` is only supported with Turbopack. Please remove the option or run Next.js with Turbopack in %s.",
   "1253": "\\`experimental.cssChunking: \"strict\"\\` is only supported with webpack. Please remove the option or run Next.js with webpack in %s.",
   "1254": "\\`experimental.cssChunking: false\\` is only supported with webpack. Please remove the option or run Next.js with webpack in %s.",
-  "1255": "Invariant: expected static metadata route to have a prerender pathname (%s)"
+  "1255": "Invariant: expected static metadata route to have a prerender pathname (%s)",
+  "1256": "Compilation failed but no issues were recorded",
+  "1257": "no route matched for path \"%s\"",
+  "1258": "compileRoute: either routeSpecifier or path is required"
 }
